@@ -14,7 +14,7 @@ struct DailyForecastView: View {
     var timeFormat: Date.FormatStyle {
         Date.FormatStyle().day(.defaultDigits)
     }
-
+    @AppStorage("temperatureUnit") var temperatureUnit: String = "celsius"
     var body: some View {
         CustomStackView {
             Label {
@@ -42,7 +42,7 @@ struct DailyForecastView: View {
                                 .symbolRenderingMode(.palette)
                                 .foregroundStyle((cast.condition == .mostlyClear || cast.condition == .clear) ? .yellow : .white)
                                 .frame(width: 30)
-                            let tempL = cast.lowTemperature.value.rounded()
+                            let tempL = cast.lowTemperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
                             let roundedTemperatureL = Int(tempL)
                             Text("\(roundedTemperatureL)°")
                                 .font(.title3.bold())
@@ -62,7 +62,7 @@ struct DailyForecastView: View {
                                 }
                             }
                             .frame(height: 4)
-                            let tempH = cast.highTemperature.value.rounded()
+                            let tempH = cast.highTemperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
                             let roundedTemperatureH = Int(tempH)
                             Text("\(roundedTemperatureH)°")
                                 .font(.title3.bold())

@@ -14,46 +14,55 @@ struct DetaiIView: View {
     @State var locationManager = CLLocationManager()
     @ObservedObject var сitiesModel = CityManager()
     let weatherService = WeatherService()
-    var temperature = "17"
     var city: String
     var latitude = 51.5074
     var longitude = -0.1278
+    @AppStorage("temperatureUnit") var temperatureUnit: String = "celsius"
     var body: some View {
     
         RoundedRectangle(cornerRadius: 20 * sizeScreenIphone())
             .frame(width: 350 * sizeScreenIphone(), height: 100 * sizeScreenIphone())
-            .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+            .foregroundColor(.clear)
             .overlay(
-                VStack{
-                    HStack{
-                        VStack(alignment: .leading) {
-                            Text(viewModel.cityName)
+                ZStack{
+                    if viewModel.currentWeather?.condition.description == "Clear" {
+                        BackgroundView(weatherType: .sunny)
+                            .cornerRadius(20 * sizeScreenIphone())
+                    } else {
+                        BackgroundView(weatherType: .cloudy)
+                            .cornerRadius(20 * sizeScreenIphone())
+                    }
+                    VStack{
+                        HStack{
+                            VStack(alignment: .leading) {
+                                Text(viewModel.cityName)
+                                    .foregroundColor(.white)
+                                    .font(.title)
+                                    .bold()
+                            }
+                            Spacer()
+                            let temp = viewModel.currentWeather?.temperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
+                            let roundedTemperature = Int(temp ?? 0)
+                            Text("\(roundedTemperature)°")
                                 .foregroundColor(.white)
-                                .font(.title)
-                                .bold()     
+                                .font(.largeTitle)
+                                .bold()
                         }
                         Spacer()
-                        let temp = viewModel.currentWeather?.temperature.value.rounded()
-                        let roundedTemperature = Int(temp ?? 0)
-                        Text("\(roundedTemperature)°")
-                            .foregroundColor(.white)
-                            .font(.largeTitle)
-                            .bold()
+                        HStack{
+                            Text(viewModel.currentWeather?.condition.description ?? "---")
+                                .foregroundColor(.white)
+                            Spacer()
+                            let tempH = viewModel.todayWeather?.highTemperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
+                            let roundedTemperatureH = Int(tempH ?? 0)
+                            let tempL = viewModel.todayWeather?.lowTemperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
+                            let roundedTemperatureL = Int(tempL ?? 0)
+                            Text("H: \(roundedTemperatureH)°  L: \(roundedTemperatureL)°")
+                                .foregroundColor(.white)
+                        }
                     }
-                    Spacer()
-                    HStack{
-                        Text(viewModel.currentWeather?.condition.description ?? "---")
-                            .foregroundColor(.white)
-                        Spacer()
-                        let tempH = viewModel.todayWeather?.highTemperature.value.rounded()
-                        let roundedTemperatureH = Int(tempH ?? 0)
-                        let tempL = viewModel.todayWeather?.lowTemperature.value.rounded()
-                        let roundedTemperatureL = Int(tempL ?? 0)
-                        Text("H: \(roundedTemperatureH)°  L: \(roundedTemperatureL)°")
-                            .foregroundColor(.white)
-                    }
-                }
                     .padding()
+                }
             )
             .onAppear(perform: {
                locationManager.delegate = viewModel

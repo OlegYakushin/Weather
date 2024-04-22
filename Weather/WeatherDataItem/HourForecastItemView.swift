@@ -14,7 +14,7 @@ struct HourForecastItemView: View {
     var timeFormat: Date.FormatStyle {
         Date.FormatStyle().hour(.defaultDigits(amPM: .omitted))
     }
-
+    @AppStorage("temperatureUnit") var temperatureUnit: String = "celsius"
     var body: some View {
         VStack(spacing: 4) {
             Text(hourWeather.date, format: timeFormat)
@@ -27,7 +27,7 @@ struct HourForecastItemView: View {
                 .symbolRenderingMode(.palette)
                 .foregroundStyle((hourWeather.isDaylight && (hourWeather.condition == .mostlyClear || hourWeather.condition == .clear)) ? .yellow : .white)
                 .frame(height: 30)
-            let temp = hourWeather.temperature.value.rounded()
+            let temp = hourWeather.temperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
             let roundedTemperature = Int(temp ?? 0)
             Text("\(roundedTemperature)°")
                 .font(.callout.bold())

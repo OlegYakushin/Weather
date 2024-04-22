@@ -17,19 +17,16 @@ struct WeatherView: View {
     var latitude = 51.5074
     var longitude = -0.1278
     @State private var opacity: Double = 1
-
+    @AppStorage("temperatureUnit") var temperatureUnit: String = "celsius"
     var topEdge: CGFloat
     
     var body: some View {
         ZStack {
-            GeometryReader{ proxy in
-                Image("sky")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: proxy.size.width,
-                           height: proxy.size.height)
+            if viewModel.currentWeather?.condition.description == "Clear" {
+                BackgroundView(weatherType: .sunny)
+            } else {
+                BackgroundView(weatherType: .cloudy)
             }
-            .ignoresSafeArea()
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
@@ -43,7 +40,7 @@ struct WeatherView: View {
                         if viewModel.cityName == "----" {
                             
                         }else{
-                            let temp = viewModel.currentWeather?.temperature.value.rounded()
+                                let temp = viewModel.currentWeather?.temperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
                             let roundedTemperature = Int(temp ?? 0)
                             Text("\(roundedTemperature)°")
                                 .font(.system(size: 45))
@@ -63,9 +60,9 @@ struct WeatherView: View {
                                 .shadow(radius: 5)
                                 .opacity(getTitleOpactiy())
                             
-                            let tempH = viewModel.todayWeather?.highTemperature.value.rounded()
+                            let tempH = viewModel.todayWeather?.highTemperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
                             let roundedTemperatureH = Int(tempH ?? 0)
-                            let tempL = viewModel.todayWeather?.lowTemperature.value.rounded()
+                            let tempL = viewModel.todayWeather?.lowTemperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
                             let roundedTemperatureL = Int(tempL ?? 0)
                             Text("H: \(roundedTemperatureH)°  L: \(roundedTemperatureL)°")
                                 .foregroundStyle(.primary)
@@ -123,13 +120,7 @@ struct WeatherView: View {
                 )
             }
         }
-        .gesture(DragGesture()
-                .onEnded { value in
-                    if value.translation.width > 100 {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }
-            )
+        .ignoresSafeArea()
         .onAppear(perform: {
            locationManager.delegate = viewModel
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)

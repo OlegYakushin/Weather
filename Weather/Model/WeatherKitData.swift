@@ -48,3 +48,7 @@ struct WeatherKitData: Codable{
     static var localSunset = ""
 }
 
+enum TemperatureUnit: String {
+    case celsius
+    case fahrenheit
+}

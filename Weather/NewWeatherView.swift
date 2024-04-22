@@ -18,6 +18,7 @@ struct NewWeatherView: View {
     var latitude = 51.5074
     var longitude = -0.1278
     @State private var opacity: Double = 1
+    @AppStorage("temperatureUnit") var temperatureUnit: String = "celsius"
 
     var topEdge: CGFloat
     
@@ -56,7 +57,7 @@ struct NewWeatherView: View {
                         if viewModel.cityName == "----" {
                             
                         }else{
-                            let temp = viewModel.currentWeather?.temperature.value.rounded()
+                            let temp = viewModel.currentWeather?.temperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
                             let roundedTemperature = Int(temp ?? 0)
                             Text("\(roundedTemperature)°")
                                 .font(.system(size: 45))
@@ -76,9 +77,9 @@ struct NewWeatherView: View {
                                 .shadow(radius: 5)
                                 .opacity(getTitleOpactiy())
                             
-                            let tempH = viewModel.todayWeather?.highTemperature.value.rounded()
+                            let tempH = viewModel.todayWeather?.highTemperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
                             let roundedTemperatureH = Int(tempH ?? 0)
-                            let tempL = viewModel.todayWeather?.lowTemperature.value.rounded()
+                            let tempL = viewModel.todayWeather?.lowTemperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
                             let roundedTemperatureL = Int(tempL ?? 0)
                             Text("H: \(roundedTemperatureH)°  L: \(roundedTemperatureL)°")
                                 .foregroundStyle(.primary)

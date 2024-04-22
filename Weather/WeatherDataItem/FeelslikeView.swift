@@ -10,6 +10,7 @@ import WeatherKit
 
 struct FeelslikeView: View {
     var currentWeather: CurrentWeather
+    @AppStorage("temperatureUnit") var temperatureUnit: String = "celsius"
     
     var body: some View {
         CustomStackView {
@@ -22,7 +23,7 @@ struct FeelslikeView: View {
         } contentView: {
             
             VStack(alignment: .leading) {
-                let temp = currentWeather.apparentTemperature.value.rounded()
+                let temp = currentWeather.apparentTemperature.converted(to: temperatureUnit == "celsius" ? .celsius : .fahrenheit).value.rounded()
                 let roundedTemperature = Int(temp)
                 Text("\(roundedTemperature)°")
                     .font(.title)
