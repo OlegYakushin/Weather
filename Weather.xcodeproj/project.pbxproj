@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8B1A89D22BD17BBA009BAAF7 /* StackWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1A89D12BD17BB9009BAAF7 /* StackWeatherView.swift */; };
+		8B6D4F232BDE8E13004DD850 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D4F222BDE8E13004DD850 /* TabBar.swift */; };
+		8B6D4F262BDEBA44004DD850 /* NavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = 8B6D4F252BDEBA44004DD850 /* NavigationTransitions */; };
 		8BD79A072BC41940008A5FAD /* WeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD79A062BC41940008A5FAD /* WeatherApp.swift */; };
 		8BD79A092BC41940008A5FAD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD79A082BC41940008A5FAD /* ContentView.swift */; };
 		8BD79A0B2BC41941008A5FAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BD79A0A2BC41941008A5FAD /* Assets.xcassets */; };
@@ -37,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		8B1A89D12BD17BB9009BAAF7 /* StackWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackWeatherView.swift; sourceTree = "<group>"; };
+		8B6D4F222BDE8E13004DD850 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		8BD79A032BC41940008A5FAD /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BD79A062BC41940008A5FAD /* WeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApp.swift; sourceTree = "<group>"; };
 		8BD79A082BC41940008A5FAD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B6D4F262BDEBA44004DD850 /* NavigationTransitions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +104,7 @@
 				8BD79A062BC41940008A5FAD /* WeatherApp.swift */,
 				8BD79A082BC41940008A5FAD /* ContentView.swift */,
 				8BD79A142BC419C2008A5FAD /* MainView.swift */,
+				8B6D4F222BDE8E13004DD850 /* TabBar.swift */,
 				8BD79A162BC419D8008A5FAD /* DetaiIView.swift */,
 				8BF657482BC5884500DB10DB /* WeatherView.swift */,
 				8BF78B5C2BC9C04300EE37A0 /* NewWeatherView.swift */,
@@ -175,6 +180,9 @@
 			dependencies = (
 			);
 			name = Weather;
+			packageProductDependencies = (
+				8B6D4F252BDEBA44004DD850 /* NavigationTransitions */,
+			);
 			productName = Weather;
 			productReference = 8BD79A032BC41940008A5FAD /* Weather.app */;
 			productType = "com.apple.product-type.application";
@@ -203,6 +211,9 @@
 				Base,
 			);
 			mainGroup = 8BD799FA2BC41940008A5FAD;
+			packageReferences = (
+				8B6D4F242BDEBA44004DD850 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
+			);
 			productRefGroup = 8BD79A042BC41940008A5FAD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -248,6 +259,7 @@
 				8BF657472BC5881A00DB10DB /* WeatherViewModel.swift in Sources */,
 				8BD79A072BC41940008A5FAD /* WeatherApp.swift in Sources */,
 				8BF657432BC5750C00DB10DB /* WeatherKitData.swift in Sources */,
+				8B6D4F232BDE8E13004DD850 /* TabBar.swift in Sources */,
 				8BF78B742BCA9F0800EE37A0 /* FunctionForResize.swift in Sources */,
 				8BF78B5D2BC9C04300EE37A0 /* NewWeatherView.swift in Sources */,
 				8BF6574B2BC5887000DB10DB /* CustomStackView.swift in Sources */,
@@ -464,6 +476,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8B6D4F242BDEBA44004DD850 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/davdroman/swiftui-navigation-transitions";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.13.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B6D4F252BDEBA44004DD850 /* NavigationTransitions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B6D4F242BDEBA44004DD850 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */;
+			productName = NavigationTransitions;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8BD799FB2BC41940008A5FAD /* Project object */;
 }

@@ -24,26 +24,35 @@ struct StackWeatherView: View {
             }
             .edgesIgnoringSafeArea(.top)
             .ignoresSafeArea()
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .onAppear {
                 сitiesModel.loadCity()
             }
             VStack {
-                            HStack {
-                              
-                                Button(action: {
-                                    presentationMode.wrappedValue.dismiss()
-                                }) {
-                                    Image(systemName: "arrow.left")
-                                        .foregroundColor(.white)
-                                }
-                                Spacer()
-                            }
                 Spacer()
-                           
+                ZStack{
+                        HStack(spacing: 8) {
+                            ForEach(сitiesModel.cities?.cities ?? [], id: \.cityName) { city in
+                                Circle()
+                                    .fill(city.cityName.hashValue == selection ? Color.white : Color.gray)
+                                    .frame(width: 8, height: 8)
+                            }
                         }
-            .padding(30)
-      
+                        HStack {
+                            Spacer()
+                            Image(systemName: "list.star")
+                                .foregroundColor(.white)
+                                .frame(width: 50, height: 50)
+                                .onTapGesture {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                    }
+                        .padding(.horizontal, 10)
+                }
+                .padding(.bottom, 20)
+                .background(BlurView(style: .light))
+            }
+            .ignoresSafeArea()
         }
         
     }
@@ -51,4 +60,27 @@ struct StackWeatherView: View {
 
 
 
+struct BlurView: UIViewRepresentable {
 
+    let style: UIBlurEffect.Style
+
+    func makeUIView(context: UIViewRepresentableContext<BlurView>) -> UIView {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .clear
+        let blurEffect = UIBlurEffect(style: style)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(blurView, at: 0)
+        NSLayoutConstraint.activate([
+            blurView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            blurView.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
+        return view
+    }
+
+    func updateUIView(_ uiView: UIView,
+                      context: UIViewRepresentableContext<BlurView>) {
+
+    }
+
+}
