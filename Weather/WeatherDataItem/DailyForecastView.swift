@@ -68,7 +68,6 @@ struct DailyForecastView: View {
                                 .font(.title3.bold())
                                 .foregroundStyle(.white)
                         }
-                        
                         Divider()
                     }
                     .padding(.vertical, 8)

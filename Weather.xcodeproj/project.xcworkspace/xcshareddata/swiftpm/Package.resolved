@@ -1,5 +1,5 @@
 {
-  "originHash" : "78784ed9c1c18dee007f91a9a5bf15f8f13d038b2287d81dad092b5fa7e64613",
+  "originHash" : "5938ae957a71aeb478025df23cd51babd5f408e856b6a305f04c48ac2c254fa6",
   "pins" : [
     {
       "identity" : "swiftui-introspect",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "a6a3c70ad5d771bd1e927fb55897231cd9592024",
         "version" : "0.13.3"
+      }
+    },
+    {
+      "identity" : "swipecellkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwipeCellKit/SwipeCellKit",
+      "state" : {
+        "revision" : "7219cad3098637176ace311510d11467dbfb9bb0",
+        "version" : "2.7.1"
       }
     }
   ],

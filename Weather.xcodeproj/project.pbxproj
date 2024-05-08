@@ -10,6 +10,7 @@
 		8B1A89D22BD17BBA009BAAF7 /* StackWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1A89D12BD17BB9009BAAF7 /* StackWeatherView.swift */; };
 		8B6D4F232BDE8E13004DD850 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D4F222BDE8E13004DD850 /* TabBar.swift */; };
 		8B6D4F262BDEBA44004DD850 /* NavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = 8B6D4F252BDEBA44004DD850 /* NavigationTransitions */; };
+		8BC848732BEBC6C6008F39F4 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8BC848722BEBC6C6008F39F4 /* SwipeCellKit */; };
 		8BD79A072BC41940008A5FAD /* WeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD79A062BC41940008A5FAD /* WeatherApp.swift */; };
 		8BD79A092BC41940008A5FAD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD79A082BC41940008A5FAD /* ContentView.swift */; };
 		8BD79A0B2BC41941008A5FAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BD79A0A2BC41941008A5FAD /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BC848732BEBC6C6008F39F4 /* SwipeCellKit in Frameworks */,
 				8B6D4F262BDEBA44004DD850 /* NavigationTransitions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +184,7 @@
 			name = Weather;
 			packageProductDependencies = (
 				8B6D4F252BDEBA44004DD850 /* NavigationTransitions */,
+				8BC848722BEBC6C6008F39F4 /* SwipeCellKit */,
 			);
 			productName = Weather;
 			productReference = 8BD79A032BC41940008A5FAD /* Weather.app */;
@@ -213,6 +216,7 @@
 			mainGroup = 8BD799FA2BC41940008A5FAD;
 			packageReferences = (
 				8B6D4F242BDEBA44004DD850 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
+				8BC848712BEBC6C5008F39F4 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 			);
 			productRefGroup = 8BD79A042BC41940008A5FAD /* Products */;
 			projectDirPath = "";
@@ -486,6 +490,14 @@
 				minimumVersion = 0.13.3;
 			};
 		};
+		8BC848712BEBC6C5008F39F4 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -493,6 +505,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8B6D4F242BDEBA44004DD850 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */;
 			productName = NavigationTransitions;
+		};
+		8BC848722BEBC6C6008F39F4 /* SwipeCellKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BC848712BEBC6C5008F39F4 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
+			productName = SwipeCellKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

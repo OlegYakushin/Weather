@@ -14,8 +14,6 @@ struct WeatherDataView: View {
     var body: some View {
         
         VStack(spacing: 8) {
-//            airQualityView()
-            
             HStack {
                 UVIndexView(uvIndex: currentWeather.uvIndex)
                 WindView(wind: currentWeather.wind)
@@ -30,7 +28,6 @@ struct WeatherDataView: View {
                 VisibilityView(currentWeather: currentWeather)
                 PressureView(currentWeather: currentWeather)
             }.frame(maxHeight: .infinity)
-
         }
     }
 }

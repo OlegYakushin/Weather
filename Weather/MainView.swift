@@ -10,6 +10,7 @@ import CoreLocation
 import WeatherKit
 import MapKit
 import NavigationTransition
+import SwipeCellKit
 
 struct MainView: View {
     @State private var isDetailExpanded = false
@@ -37,7 +38,8 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.black
+                LinearGradient(gradient: Gradient(colors: [Color.black, Color.indigo.opacity(0.9)]), startPoint: .top, endPoint: .bottom)
+                    .edgesIgnoringSafeArea(.all)
                     .ignoresSafeArea()
                 ZStack {
                     if isEditing {
@@ -63,27 +65,34 @@ struct MainView: View {
                         .padding(.top, 190 * sizeScreenIphone())
                         
                     } else {
-                        
                         ScrollView(showsIndicators: false) {
+                            
                             VStack {
                                 if searchText == "" {
+                                    
                                     ForEach(сitiesModel.cities?.cities ?? [], id: \.cityName) { city in
                                         
                                         let selection = city.cityName.hashValue
-                                        NavigationLink(destination:
-                                                        StackWeatherView(selection: selection, сitiesModel: сitiesModel).navigationBarBackButtonHidden()) {
+                                        let cityIndex = сitiesModel.cities?.cities.firstIndex(where: { $0.cityName == city.cityName }) ?? 0
+                                        
                                             DetaiIView(city: city.cityName, latitude: city.location.coordinate.latitude, longitude: city.location.coordinate.longitude)
-                                        }
+                                            .background(  NavigationLink(destination: StackWeatherView(selection: selection, сitiesModel: сitiesModel).navigationBarBackButtonHidden(), isActive: $isDetailExpanded) {
+                                                EmptyView()
+                                            })
+                                                        .gesture(
+                                                               DragGesture()
+                                                                   .onEnded { gesture in
+                                                                       if gesture.translation.width < -100 {
+                                                                           сitiesModel.deleteCity(city)
+                                                                       }
+                                                                   }
+                                                           )
                                                         .onTapGesture {
                                                             withAnimation {
                                                                 isDetailExpanded.toggle()
+                                                                    
                                                             }
                                                         }
-                                                        .scaleEffect(isDetailExpanded ? 1.1 : 1.0)
-                                                        .opacity(isDetailExpanded ? 0.5 : 1.0)
-                                                        .offset(y: isDetailExpanded ? -20 : 0)
-                                        
-                                        
                                                         .contextMenu {
                                                             Button(action: {
                                                                 сitiesModel.deleteCity(city)
@@ -133,9 +142,9 @@ struct MainView: View {
                                     DispatchQueue.main.async {
                                         self.offset = minY
                                         if startOffset == 0 {
-                                            startOffset = minY
+                                            startOffset = minY - 20 * sizeScreenIphone()
                                         }else{
-                                            offset = startOffset - minY
+                                            offset = startOffset - minY - 20 * sizeScreenIphone()
                                             if offset >  0 * sizeScreenIphone() {
                                                 withAnimation {
                                                     changeTitle = true
@@ -156,7 +165,9 @@ struct MainView: View {
                                 ,alignment: .top
                             )
                         }
+                        .padding(.top, 10 * sizeScreenIphone())
                     }
+                    
                     VStack{
                         VStack{
                             ZStack{
@@ -216,12 +227,16 @@ struct MainView: View {
                                         TextField("Search", text: $searchText)
                                             .padding(.horizontal)
                                             .foregroundColor(.white)
-                                        Button(action: {
-                                            searchText = ""
-                                        }) {
-                                            Image(systemName: "xmark.circle.fill")
-                                                .foregroundColor(.white)
-                                                .padding(.trailing, 8 * sizeScreenIphone())
+                                        if searchText == ""{
+                                            
+                                        }else {
+                                            Button(action: {
+                                                searchText = ""
+                                            }) {
+                                                Image(systemName: "xmark.circle.fill")
+                                                    .foregroundColor(.white)
+                                                    .padding(.trailing, 8 * sizeScreenIphone())
+                                            }
                                         }
                                     }
                                     
@@ -365,6 +380,7 @@ struct MainView: View {
           сitiesModel.cities?.cities = cities
           сitiesModel.saveCity()
       }
+    
 }
 
 

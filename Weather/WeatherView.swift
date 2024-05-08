@@ -73,9 +73,6 @@ struct WeatherView: View {
                                     .opacity(getTitleOpactiy())
                             }
                         }
-                       // .offset(y: -offset)
-                     //   .offset(y: offset > 0 ? (offset / UIScreen.main.bounds.width) * 100 : 0)
-                      //  .offset(y: getTitleOffset())
                         .environmentObject(viewModel)
                         
                         VStack(spacing: 8) {

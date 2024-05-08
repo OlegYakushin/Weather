@@ -36,6 +36,7 @@ struct NewWeatherView: View {
                         .font(.system(size: 35))
                         .foregroundStyle(.white)
                         .shadow(radius: 5)
+                        .padding(.top, 15)
                     HStack {
                         Spacer()
                         Text("Add")
@@ -45,6 +46,7 @@ struct NewWeatherView: View {
                             .onTapGesture {
                                 сitiesModel.addCity(cityName: viewModel.cityName, latitude: latitude, longitude: longitude)
                                 opacity = 0
+                                presentationMode.wrappedValue.dismiss()
                             }
                     }
                     .padding(.horizontal)
@@ -127,6 +129,7 @@ struct NewWeatherView: View {
                     .padding(.top, topEdge)
                     .padding([.horizontal, .bottom])
                 }
+                .padding(.top, 15)
             }
         }
         .gesture(DragGesture()
